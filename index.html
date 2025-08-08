@@ -36,6 +36,19 @@
             margin-bottom: 20px;
         }
         
+        .additional-info {
+            font-size: 14px;
+            color: #777;
+            margin-top: 10px;
+            margin-bottom: 0;
+            font-style: italic;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 12px 20px;
+            border-radius: 8px;
+            border: 2px solid #007bff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
         .progress-bar {
             width: 100%;
             height: 8px;
@@ -286,11 +299,6 @@
             margin-left: 10px;
         }
         
-        .status-pending {
-            background-color: #ffc107;
-            color: #856404;
-        }
-        
         .status-completed {
             background-color: #28a745;
             color: white;
@@ -384,6 +392,140 @@
         .hidden {
             display: none !important;
         }
+        
+        .info-link-section {
+            text-align: center;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #007bff;
+        }
+        
+        .info-link {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 16px;
+            transition: color 0.3s ease;
+        }
+        
+        .info-link:hover {
+            color: #0056b3;
+            text-decoration: underline;
+        }
+        
+        .comparison-chart {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            overflow-x: auto;
+        }
+        
+        .chart-title {
+            text-align: center;
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 25px;
+            font-weight: 400;
+            letter-spacing: 1px;
+        }
+        
+        .thangka-header-cell {
+            text-align: center;
+            position: relative;
+        }
+        
+        .thangka-mini-image {
+            width: 60px;
+            height: 45px;
+            object-fit: cover;
+            border-radius: 4px;
+            margin: 0 auto 8px auto;
+            display: block;
+            border: 2px solid #ddd;
+        }
+        
+        .thangka-name {
+            font-weight: 600;
+            color: #333;
+            font-size: 13px;
+            text-align: center;
+        }
+        
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+        
+        .comparison-table th {
+            background-color: #f8f9fa;
+            padding: 15px 10px;
+            text-align: center;
+            font-weight: 600;
+            border-bottom: 2px solid #dee2e6;
+            color: #495057;
+            vertical-align: top;
+        }
+        
+        .comparison-table td {
+            padding: 12px 10px;
+            border-bottom: 1px solid #dee2e6;
+            vertical-align: top;
+        }
+        
+        .comparison-table tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        
+        .comparison-table tr:hover {
+            background-color: #e3f2fd;
+        }
+        
+        .thangka-header {
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .primordial-rigden-col {
+            border-left: 4px solid #4169E1;
+        }
+        
+        .vajradhara-col {
+            border-left: 4px solid #8B4513;
+        }
+        
+        .amitabha-col {
+            border-left: 4px solid #DC143C;
+        }
+        
+        .question-cell {
+            font-weight: 500;
+            background-color: #f1f3f4 !important;
+            color: #333;
+            width: 25%;
+            text-align: left !important;
+        }
+        
+        @media (max-width: 768px) {
+            .comparison-chart {
+                padding: 15px;
+                margin: 0 -10px 30px -10px;
+            }
+            
+            .comparison-table {
+                font-size: 12px;
+            }
+            
+            .comparison-table th,
+            .comparison-table td {
+                padding: 8px 6px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -394,14 +536,77 @@
             <div class="progress-fill" id="progressFill"></div>
         </div>
         <p id="progressText">Progress: 0 of 3 completed</p>
+        <p class="additional-info">Click the links within each section for detailed background information</p>
+    </div>
+
+    <!-- Comparison Chart -->
+    <div class="comparison-chart">
+        <h2 class="chart-title">Quick Comparison Overview</h2>
+        <table class="comparison-table">
+            <thead>
+                <tr>
+                    <th class="question-cell"></th>
+                    <th class="primordial-rigden-col thangka-header-cell">
+                        <img src="primordialRigden.png" alt="Primordial Rigden" class="thangka-mini-image">
+                        <div class="thangka-name">Primordial Rigden</div>
+                    </th>
+                    <th class="vajradhara-col thangka-header-cell">
+                        <img src="vajradhara.png" alt="Vajradhara" class="thangka-mini-image">
+                        <div class="thangka-name">Vajradhara</div>
+                    </th>
+                    <th class="amitabha-col thangka-header-cell">
+                        <img src="amitabha.png" alt="Amitabha" class="thangka-mini-image">
+                        <div class="thangka-name">Shakyamuni or Amitabha Buddha</div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="question-cell"><strong>Who first introduced this thangka to our sangha and when?</strong></td>
+                    <td class="primordial-rigden-col">Sakyong Mipham Rinpoche in 2010</td>
+                    <td class="vajradhara-col">Chogyam Trungpa Rinpoche in 1979</td>
+                    <td class="amitabha-col">Amitabha Buddha: Chogyam Trungpa Rinpoche in early 1970's</td>
+                </tr>
+                <tr>
+                    <td class="question-cell"><strong>Who painted this thangka and where?</strong></td>
+                    <td class="primordial-rigden-col">Cynthia Moku in Boulder</td>
+                    <td class="vajradhara-col">Sherab Palden Beru at Samye Ling in Scotland</td>
+                    <td class="amitabha-col">A Bhutanese thangka painter in Bhutan (gift to Chogyam Trungpa Rinpoche from Queen of Bhutan)</td>
+                </tr>
+                <tr>
+                    <td class="question-cell"><strong>Who is expected to recognize this thangka first time they enter the shrine room?</strong></td>
+                    <td class="primordial-rigden-col">Students on the Shambhala path after 2010</td>
+                    <td class="vajradhara-col">Kagyu Lineage practitioners & some other Tibetan Buddhists</td>
+                    <td class="amitabha-col">Everyone</td>
+                </tr>
+                <tr>
+                    <td class="question-cell"><strong>Does this thangka specifically support visualization practices being taught currently in the Shambhala community?</strong></td>
+                    <td class="primordial-rigden-col">No - supports practices that were previously taught to Shambhala ngondro, Werma, & Scorpion Seal students, not currently being transmitted by any teacher</td>
+                    <td class="vajradhara-col">Yes - central to Kagyu ngondro practices; also appears in Kagyu sadhana practices</td>
+                    <td class="amitabha-col">Amitabha supports Sukhavati Memorial Services; any Buddha figure atmospherically supports sitting practice for all meditators</td>
+                </tr>
+                <tr>
+                    <td class="question-cell"><strong>Roughly estimated cost of installation</strong></td>
+                    <td class="primordial-rigden-col">None</td>
+                    <td class="vajradhara-col">Up to $3,000 to move Vajradhara to main shrine and Primordial Rigden to north wall</td>
+                    <td class="amitabha-col">Up to $4,000 if no purchase is involved; up to $22,000 if a copy is commissioned (including shipping and re-installation of Primordial Rigden on north wall)</td>
+                </tr>
+                <tr>
+                    <td class="question-cell"><strong>When might this thangka be installed over the main shrine, once selected by the community?</strong></td>
+                    <td class="primordial-rigden-col">Immediately -- No change</td>
+                    <td class="vajradhara-col">Within a couple of months</td>
+                    <td class="amitabha-col">Within a couple of months (if available now) to a couple of years (if a copy must be commissioned)</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 
     <!-- VAJRADHARA Form -->
     <div class="form-container vajradhara" id="vajradharaContainer">
-        <h1>V A J R A D H A R A <span class="completion-status status-pending" id="vajradharaStatus">Pending</span></h1>
+        <h1>V A J R A D H A R A <span class="completion-status status-completed hidden" id="vajradharaStatus">Completed</span></h1>
         
-        <div style="text-align: center; margin-bottom: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px; font-style: italic; color: #555;">
-            This 6'x6' thangka was commissioned by Chögyam Trungpa Rinpoche in 1979 and blessed by both the Vidyadhara and the 16th Karmapa. It served as the main shrine image for 30 years, supporting Kagyu ngöndro practice and countless teachings. Returning it would welcome back traditional Buddhist practitioners and visiting teachers while honoring our Kagyu vajrayana heritage alongside Shambhala practices.
+        <div class="info-link-section">
+            <a href="https://docs.google.com/document/d/1djQDCSMUGNDEO_0NEYm5-167blKes7gQ9rPzx_k_lkQ/edit?usp=sharing" class="info-link">Learn more about Vajradhara and its significance</a>
         </div>
         
         <form id="vajradharaForm">
@@ -462,10 +667,10 @@
 
     <!-- AMITABHA Form -->
     <div class="form-container amitabha" id="amitabhaContainer">
-        <h1>A M I T A B H A <span class="completion-status status-pending" id="amitabhaStatus">Pending</span></h1>
+        <h1>A M I T A B H A <span class="completion-status status-completed hidden" id="amitabhaStatus">Completed</span></h1>
         
-        <div style="text-align: center; margin-bottom: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px; font-style: italic; color: #555;">
-            Shakyamuni Buddha (pictured: Amitabha) represents the enlightened mind and the universal possibility of achieving enlightenment. As a familiar and welcoming image to all Buddhist traditions worldwide, it would serve as an inclusive focal point for meditation and devotion. This choice honors the Vidyadhara's vision of maintaining both Buddhist and Shambhala teachings, creating a bridge for diverse practitioners visiting BSC.
+        <div class="info-link-section">
+            <a href="https://docs.google.com/document/d/1sigL7x7N6gpW-AhJOopvoQfMQZlh-5QVfv0_2Cc0kp0/edit?usp=sharing" class="info-link">Learn more about Amitabha and its meaning</a>
         </div>
         
         <form id="amitabhaForm">
@@ -526,10 +731,10 @@
 
     <!-- PRIMORDIAL RIGDEN Form -->
     <div class="form-container rigden" id="rigdenContainer">
-        <h1>P R I M O R D I A L &nbsp; R I G D E N <span class="completion-status status-pending" id="rigdenStatus">Pending</span></h1>
+        <h1>P R I M O R D I A L &nbsp; R I G D E N <span class="completion-status status-completed hidden" id="rigdenStatus">Completed</span></h1>
         
-        <div style="text-align: center; margin-bottom: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px; font-style: italic; color: #555;">
-            The Primordial Rigden embodies inherent basic goodness, combining Buddhist and Shambhala teachings. This thangka connects us to the global Shambhala community and represents our unique heritage from Chögyam Trungpa Rinpoche. Despite complex community history, it symbolizes our path of taking obstacles as the way forward, inviting healing and transformation while maintaining our identity as a Shambhala practice center.
+        <div class="info-link-section">
+            <a href="https://docs.google.com/document/d/1ItxGfZ8fEka5kPEgSyiO9Tk1xLDdtbty/edit?usp=sharing&ouid=107572321940020316076&rtpof=true&sd=true" class="info-link">Learn more about the Primordial Rigden and Shambhala teachings</a>
         </div>
         
         <form id="primordialRigdenForm">
@@ -626,11 +831,8 @@
                 responses: data
             };
             
-            // Get existing submissions
-            const allSubmissions = JSON.parse(localStorage.getItem('all_thangka_submissions') || '[]');
-            allSubmissions.push(submissionData);
-            localStorage.setItem('all_thangka_submissions', JSON.stringify(allSubmissions));
-            
+            // Note: In a real environment, you would send this to a server
+            // For now, we'll just log it to the console
             console.log('Submission stored:', submissionData);
             return submissionData;
         }
@@ -724,8 +926,7 @@
             }
             
             container.classList.add('completed');
-            status.textContent = 'Completed';
-            status.className = 'completion-status status-completed';
+            status.classList.remove('hidden');
             submitBtn.disabled = true;
             submitBtn.textContent = 'Submitted ✓';
             
