@@ -10,7 +10,7 @@
             max-width: 900px;
             margin: 0 auto;
             padding: 20px;
-            background-color: #f5f5f5;
+            background-color: #8B5A5A;
         }
         
         .survey-header {
@@ -34,19 +34,6 @@
             font-size: 16px;
             color: #666;
             margin-bottom: 20px;
-        }
-        
-        .additional-info {
-            font-size: 14px;
-            color: #777;
-            margin-top: 10px;
-            margin-bottom: 0;
-            font-style: italic;
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-            padding: 12px 20px;
-            border-radius: 8px;
-            border: 2px solid #007bff;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
         
         .progress-bar {
@@ -82,6 +69,7 @@
         .vajradhara { border-left: 5px solid #8B4513; }
         .amitabha { border-left: 5px solid #DC143C; }
         .rigden { border-left: 5px solid #4169E1; }
+        .shakyamuni { border-left: 5px solid #228B22; }
         
         h1 {
             text-align: center;
@@ -393,28 +381,6 @@
             display: none !important;
         }
         
-        .info-link-section {
-            text-align: center;
-            margin-bottom: 20px;
-            padding: 15px;
-            background: #f8f9fa;
-            border-radius: 8px;
-            border-left: 4px solid #007bff;
-        }
-        
-        .info-link {
-            color: #007bff;
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 16px;
-            transition: color 0.3s ease;
-        }
-        
-        .info-link:hover {
-            color: #0056b3;
-            text-decoration: underline;
-        }
-        
         .comparison-chart {
             background: white;
             padding: 30px;
@@ -499,11 +465,15 @@
             border-left: 4px solid #DC143C;
         }
         
+        .shakyamuni-col {
+            border-left: 4px solid #228B22;
+        }
+        
         .question-cell {
             font-weight: 500;
             background-color: #f1f3f4 !important;
             color: #333;
-            width: 25%;
+            width: 20%;
             text-align: left !important;
         }
         
@@ -527,12 +497,11 @@
 <body>
     <div class="survey-header" id="surveyHeader">
         <h1 class="survey-title">Boulder Shambhala Center MSR Thangka Survey</h1>
-        <p class="survey-description">Please rate each of the three thangkas below on a scale from 0 (Neutral) to 5 (Most Preferable)</p>
+        <p class="survey-description">Please rate each of the four thangkas below on a scale from 0 (Neutral) to 5 (Most Preferable)</p>
         <div class="progress-bar">
             <div class="progress-fill" id="progressFill"></div>
         </div>
-        <p id="progressText">Progress: 0 of 3 completed</p>
-        <p class="additional-info">Click the links within each survey section for -detailed- thangka background information</p>
+        <p id="progressText">Progress: 0 of 4 completed</p>
     </div>
 
     <!-- Comparison Chart -->
@@ -552,7 +521,11 @@
                     </th>
                     <th class="amitabha-col thangka-header-cell">
                         <img src="amitabha.png" alt="Amitabha" class="thangka-mini-image">
-                        <div class="thangka-name">Shakyamuni or Amitabha Buddha</div>
+                        <div class="thangka-name">Amitabha Buddha</div>
+                    </th>
+                    <th class="shakyamuni-col thangka-header-cell">
+                        <img src="shakyamuni.jpg" alt="Shakyamuni" class="thangka-mini-image">
+                        <div class="thangka-name">Shakyamuni Buddha</div>
                     </th>
                 </tr>
             </thead>
@@ -561,37 +534,43 @@
                     <td class="question-cell"><strong>Who first introduced this thangka to our sangha and when?</strong></td>
                     <td class="primordial-rigden-col">Sakyong Mipham Rinpoche in 2010</td>
                     <td class="vajradhara-col">Chogyam Trungpa Rinpoche in 1979</td>
-                    <td class="amitabha-col">Amitabha Buddha: Chogyam Trungpa Rinpoche in early 1970's</td>
+                    <td class="amitabha-col">Chogyam Trungpa Rinpoche in early 1970's</td>
+                    <td class="shakyamuni-col">Information to be added</td>
                 </tr>
                 <tr>
                     <td class="question-cell"><strong>Who painted this thangka and where?</strong></td>
                     <td class="primordial-rigden-col">Cynthia Moku in Boulder</td>
                     <td class="vajradhara-col">Sherab Palden Beru at Samye Ling in Scotland</td>
                     <td class="amitabha-col">A Bhutanese thangka painter in Bhutan (gift to Chogyam Trungpa Rinpoche from Queen of Bhutan)</td>
+                    <td class="shakyamuni-col">Information to be added</td>
                 </tr>
                 <tr>
                     <td class="question-cell"><strong>Who is expected to recognize this thangka first time they enter the shrine room?</strong></td>
                     <td class="primordial-rigden-col">Students on the Shambhala path after 2010</td>
                     <td class="vajradhara-col">Kagyu Lineage practitioners & some other Tibetan Buddhists</td>
                     <td class="amitabha-col">Everyone</td>
+                    <td class="shakyamuni-col">Information to be added</td>
                 </tr>
                 <tr>
                     <td class="question-cell"><strong>Does this thangka specifically support visualization practices being taught currently in the Shambhala community?</strong></td>
                     <td class="primordial-rigden-col">No - supports practices that were previously taught to Shambhala ngondro, Werma, & Scorpion Seal students, not currently being transmitted by any teacher</td>
                     <td class="vajradhara-col">Yes - central to Kagyu ngondro practices; also appears in Kagyu sadhana practices</td>
-                    <td class="amitabha-col">Amitabha supports Sukhavati Memorial Services; any Buddha figure atmospherically supports sitting practice for all meditators</td>
+                    <td class="amitabha-col">Supports Sukhavati Memorial Services; any Buddha figure atmospherically supports sitting practice for all meditators</td>
+                    <td class="shakyamuni-col">Information to be added</td>
                 </tr>
                 <tr>
                     <td class="question-cell"><strong>Roughly estimated cost of installation</strong></td>
                     <td class="primordial-rigden-col">None</td>
                     <td class="vajradhara-col">Up to $3,000 to move Vajradhara to main shrine and Primordial Rigden to north wall</td>
                     <td class="amitabha-col">Up to $4,000 if no purchase is involved; up to $22,000 if a copy is commissioned (including shipping and re-installation of Primordial Rigden on north wall)</td>
+                    <td class="shakyamuni-col">Information to be added</td>
                 </tr>
                 <tr>
                     <td class="question-cell"><strong>When might this thangka be installed over the main shrine, once selected by the community?</strong></td>
                     <td class="primordial-rigden-col">Immediately -- No change</td>
                     <td class="vajradhara-col">Within a couple of months</td>
                     <td class="amitabha-col">Within a couple of months (if available now) to a couple of years (if a copy must be commissioned)</td>
+                    <td class="shakyamuni-col">Information to be added</td>
                 </tr>
             </tbody>
         </table>
@@ -600,10 +579,6 @@
     <!-- VAJRADHARA Form -->
     <div class="form-container vajradhara" id="vajradharaContainer">
         <h1>V A J R A D H A R A <span class="completion-status status-completed hidden" id="vajradharaStatus">Completed</span></h1>
-        
-        <div class="info-link-section">
-            <a href="https://docs.google.com/document/d/1djQDCSMUGNDEO_0NEYm5-167blKes7gQ9rPzx_k_lkQ/edit?usp=sharing" class="info-link">Learn more about Vajradhara and its significance</a>
-        </div>
         
         <form id="vajradharaForm">
             <div class="image-section">
@@ -665,10 +640,6 @@
     <div class="form-container amitabha" id="amitabhaContainer">
         <h1>A M I T A B H A <span class="completion-status status-completed hidden" id="amitabhaStatus">Completed</span></h1>
         
-        <div class="info-link-section">
-            <a href="https://docs.google.com/document/d/1sigL7x7N6gpW-AhJOopvoQfMQZlh-5QVfv0_2Cc0kp0/edit?usp=sharing" class="info-link">Learn more about Amitabha and its meaning</a>
-        </div>
-        
         <form id="amitabhaForm">
             <div class="image-section">
                 <div class="image-container">
@@ -729,10 +700,6 @@
     <div class="form-container rigden" id="rigdenContainer">
         <h1>P R I M O R D I A L &nbsp; R I G D E N <span class="completion-status status-completed hidden" id="rigdenStatus">Completed</span></h1>
         
-        <div class="info-link-section">
-            <a href="https://docs.google.com/document/d/1ItxGfZ8fEka5kPEgSyiO9Tk1xLDdtbty/edit?usp=sharing&ouid=107572321940020316076&rtpof=true&sd=true" class="info-link">Learn more about the Primordial Rigden and Shambhala teachings</a>
-        </div>
-        
         <form id="primordialRigdenForm">
             <div class="image-section">
                 <div class="image-container">
@@ -789,10 +756,70 @@
         </form>
     </div>
 
+    <!-- SHAKYAMUNI Form -->
+    <div class="form-container shakyamuni" id="shakyamuniContainer">
+        <h1>S H A K Y A M U N I &nbsp; B U D D H A <span class="completion-status status-completed hidden" id="shakyamuniStatus">Completed</span></h1>
+        
+        <form id="shakyamuniForm">
+            <div class="image-section">
+                <div class="image-container">
+                    <img src="shakyamuni.jpg" alt="SHAKYAMUNI BUDDHA thangka" style="max-width: 100%; height: auto;">
+                </div>
+            </div>
+            
+            <div class="rating-section">
+                <h2>Rate SHAKYAMUNI BUDDHA</h2>
+                <div class="rating-grid">
+                    <div class="rating-option">
+                        <input type="radio" id="shakyamuni-rating-0" name="shakyamuni-rating" value="0">
+                        <label for="shakyamuni-rating-0">0</label>
+                    </div>
+                    <div class="rating-option">
+                        <input type="radio" id="shakyamuni-rating-1" name="shakyamuni-rating" value="1">
+                        <label for="shakyamuni-rating-1">1</label>
+                    </div>
+                    <div class="rating-option">
+                        <input type="radio" id="shakyamuni-rating-2" name="shakyamuni-rating" value="2">
+                        <label for="shakyamuni-rating-2">2</label>
+                    </div>
+                    <div class="rating-option">
+                        <input type="radio" id="shakyamuni-rating-3" name="shakyamuni-rating" value="3">
+                        <label for="shakyamuni-rating-3">3</label>
+                    </div>
+                    <div class="rating-option">
+                        <input type="radio" id="shakyamuni-rating-4" name="shakyamuni-rating" value="4">
+                        <label for="shakyamuni-rating-4">4</label>
+                    </div>
+                    <div class="rating-option">
+                        <input type="radio" id="shakyamuni-rating-5" name="shakyamuni-rating" value="5">
+                        <label for="shakyamuni-rating-5">5</label>
+                    </div>
+                </div>
+                <div class="rating-description">
+                    0 (Neutral) to 5 (Most Preferable)
+                </div>
+            </div>
+            
+            <div class="feedback-section">
+                <h2>Feedback</h2>
+                <textarea 
+                    class="feedback-textarea" 
+                    name="shakyamuni-feedback"
+                    placeholder="Optional: Share your thoughts about this thangka..."
+                    rows="5"
+                ></textarea>
+            </div>
+            
+            <div class="submit-section">
+                <button type="submit" class="submit-btn">Submit SHAKYAMUNI BUDDHA Rating</button>
+            </div>
+        </form>
+    </div>
+
     <!-- Final Submit Section -->
     <div class="final-submit" id="finalSubmitSection">
         <h2>Complete Your Survey</h2>
-        <p>You have completed all three ratings. Click below to submit your complete survey.</p>
+        <p>You have completed all four ratings. Click below to submit your complete survey.</p>
         <button type="button" class="final-submit-btn" id="finalSubmitBtn">Submit Complete Survey</button>
     </div>
 
@@ -809,7 +836,7 @@
 
     <script>
         let completedForms = 0;
-        const totalForms = 3;
+        const totalForms = 4;
         const surveyData = {};
         
         // Generate unique submission ID
@@ -870,6 +897,10 @@
             
             document.getElementById('primordialRigdenForm').addEventListener('submit', function(e) {
                 handleFormSubmit(e, 'PRIMORDIAL RIGDEN', 'rigden');
+            });
+
+            document.getElementById('shakyamuniForm').addEventListener('submit', function(e) {
+                handleFormSubmit(e, 'SHAKYAMUNI BUDDHA', 'shakyamuni');
             });
 
             // Final submission
@@ -947,7 +978,7 @@
 
         function handleFinalSubmit() {
             if (completedForms !== totalForms) {
-                showToast('Please complete all three ratings first.', 'error');
+                showToast('Please complete all four ratings first.', 'error');
                 return;
             }
             
@@ -964,9 +995,11 @@
             
             // Hide all survey content
             document.getElementById('surveyHeader').classList.add('hidden');
+            document.querySelector('.comparison-chart').classList.add('hidden');
             document.getElementById('vajradharaContainer').classList.add('hidden');
             document.getElementById('amitabhaContainer').classList.add('hidden');
             document.getElementById('rigdenContainer').classList.add('hidden');
+            document.getElementById('shakyamuniContainer').classList.add('hidden');
             document.getElementById('finalSubmitSection').classList.add('hidden');
             
             // Show thank you page
