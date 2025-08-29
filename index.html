@@ -412,6 +412,128 @@
             margin-bottom: 0;
         }
         
+        .read-more-link {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        
+        .read-more-link a {
+            color: #007bff;
+            text-decoration: underline;
+            font-size: 14px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+        
+        .read-more-link a:hover {
+            color: #0056b3;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .modal.show {
+            display: block;
+        }
+        
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 0;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            max-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            animation: slideIn 0.3s ease;
+        }
+        
+        .modal-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px 30px;
+            border-radius: 12px 12px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .modal-title {
+            font-size: 24px;
+            font-weight: 600;
+            margin: 0;
+        }
+        
+        .modal-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            padding: 0;
+            line-height: 1;
+            opacity: 0.8;
+            transition: opacity 0.2s;
+        }
+        
+        .modal-close:hover {
+            opacity: 1;
+        }
+        
+        .modal-body {
+            padding: 30px;
+            overflow-y: auto;
+            flex: 1;
+            line-height: 1.6;
+        }
+        
+        .modal-body h3 {
+            color: #333;
+            font-size: 20px;
+            font-weight: 600;
+            margin: 25px 0 15px 0;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #e9ecef;
+        }
+        
+        .modal-body h3:first-child {
+            margin-top: 0;
+        }
+        
+        .modal-body p {
+            color: #555;
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideIn {
+            from { 
+                opacity: 0;
+                transform: translateY(-50px) scale(0.95);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+        
         .comparison-chart {
             background: white;
             padding: 30px;
@@ -508,7 +630,6 @@
 <body>
     <div class="survey-header" id="surveyHeader">
         <h1 class="survey-title">Boulder Shambhala Center MSR Thangka Survey</h1>
-        <p class="survey-description">Please rate each of the three thangkas below on a scale from 0 (Neutral) to 5 (Most Preferable)</p>
         <div class="progress-bar">
             <div class="progress-fill" id="progressFill"></div>
         </div>
@@ -525,6 +646,9 @@
             <li>Click the green "Submit" button for each thangka</li>
             <li>Complete the final submission when all three are rated</li>
         </ol>
+        <div style="text-align: center; margin-top: 20px;">
+            <a onclick="openModal('preamble')" style="color: #007bff; text-decoration: underline; font-size: 14px; cursor: pointer; font-weight: 500;">Read about the background and process for this survey</a>
+        </div>
     </div>
 
     <!-- Comparison Chart -->
@@ -599,8 +723,10 @@
                     <img src="vajradhara.png" alt="VAJRADHARA thangka" style="max-width: 100%; height: auto;">
                 </div>
             </div>
-            
             <div class="rating-section">
+                <div class="read-more-link">
+                    <a onclick="openModal('vajradhara')">Read more about this thangka's history and significance</a>
+                </div>
                 <h2>Rate VAJRADHARA</h2>
                 <div class="rating-grid">
                     <div class="rating-option">
@@ -661,6 +787,9 @@
             </div>
             
             <div class="rating-section">
+                <div class="read-more-link">
+                    <a onclick="openModal('rigden')">Read more about this thangka's history and significance</a>
+                </div>
                 <h2>Rate PRIMORDIAL RIGDEN</h2>
                 <div class="rating-grid">
                     <div class="rating-option">
@@ -721,6 +850,9 @@
             </div>
             
             <div class="rating-section">
+                <div class="read-more-link">
+                    <a onclick="openModal('shakyamuni')">Read more about this thangka's history and significance</a>
+                </div>
                 <h2>Rate SHAKYAMUNI BUDDHA</h2>
                 <div class="rating-grid">
                     <div class="rating-option">
@@ -792,10 +924,113 @@
         </div>
     </div>
 
+    <!-- Modal for detailed thangka information -->
+    <div id="thangkaModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="modalTitle"></h2>
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="modalBody">
+            </div>
+        </div>
+    </div>
+
     <script>
         let completedForms = 0;
         const totalForms = 3;
         const surveyData = {};
+        
+        // Detailed thangka information
+        const thangkaDetails = {
+preamble: {
+    title: "About This Survey: Background and Process",
+    content: `
+        <p>The choice of main shrine thangka is a sensitive topic for many, and it touches on the whole identity of Boulder Shambhala Center and lots of past karma. But it also a great opportunity to come together, share inspiration about the open future, acknowledge and perhaps relax our old grudges, collaborate, and appreciate our lineage which provided us this amazing blessed space for practice.</p>
+        
+        <p>The Boulder Shambhala Center Board and the Thangka Task Force feel that it is important to include all community voices, and some voices of people who use the shrine room but are not current Boulder Shambhala Center members. We envision a general process that is not a small-group caucus, nor really a conventional democratic vote, as it does provide space for "spontaneous insight" (a term used by Trungpa Rinpoche). We could consider not just our personal preference for which thangka we prefer to practice with, but what we think will help revitalize and sustain the sangha. Do keep in mind that when the community's best choice surfaces, there may be still be logistical, technical, or financial factors that influence the ability to install it. The process will strive for transparency.</p>
+        
+        <p>The Thangka Task Force has developed four possible scenarios for the main shrine thangka. Every thangka choice being discussed is in essence the same, a representation of the awakened mind which is inherent in all of our beings, and its expression in the world as compassion. However, we as confused individuals do tend to get attached to the particular representation that is most familiar to us, or one that was introduced by our root guru. The image is often used as a focal point for meditation, devotion, and ritual.</p>
+        
+        <p>Below are brief write ups addressing each choice. They were written to present some of the history and significance of each choice, and some of the competitive arguments that could come from someone who felt attached to each choice. However, authors of the first drafts about a particular thangka don't even necessarily feel that thangka is still their first choice. The more that Thangka Task Force members worked with these, the less we felt attached to any particular result, and the more general appreciation we felt for our practice space and our path together.</p>
+    `
+},
+rigden: {
+    title: "Primordial Rigden Thangka",
+    content: `
+        <p>The Primordial Rigden embodies inherent basic goodness, combining Buddhist and Shambhala teachings to guide practitioners toward awakenment and compassion. Currently as a community, we receive blessings and teachings from a variety of teachers and internet seminars. Yet the Primordial Rigden remains as the image that binds us to the global Shambhala community. Further, it's our unique Mukpo heritage, and it defines us as a Shambhala practice center. Sakyong Mipham Rinpoche commissioned local thangka painter Cynthia Moku to paint it specifically for Boulder Shambhala Center's main shrine in 2010. For practitioners who have frequented Boulder Shambhala Center in the last 15 years, it may represent the essence of their meditation practice, serving to wake them up and open their hearts upon entering the shrine room.</p>
+        
+        <p>We cannot deny that the Rigden thangka has become a focus for the emotional pain of some students Trungpa Rinpoche who felt pushed out when Sakyong Mipham Rinpoche began to strongly favor Shambhala teachings and practices over traditional Buddhist teachings and practices. However, this presents an opportunity for healing and transformation. The thangka, with its profound symbolism, invites us to confront the complexities of our shared history: the triumphs, the wounds, and the moments of disillusionment. It challenges us to hold space for all of it, to see beyond individual eras or leaders, and to rediscover the essence that underpins our community—confidence in basic goodness and the vision of enlightened society. As we navigate this new chapter in Shambhala's journey, the image can serve as a bridge, connecting us to the lineage's teachings while inspiring us to evolve into a more inclusive and resilient community.</p>
+    `
+},
+vajradhara: {
+    title: "Buddha Vajradhara Thangka",
+    content: `
+        <p>In this transitional time for the Boulder Shambhala Center, we have a wonderful opportunity to help heal our sangha and convincingly demonstrate the center's commitment to embracing Kagyu practices alongside the Shambhala practices: by returning the great Buddha Vajradhara thangka to Boulder Shambhala Center's main shrine room. This 6' x 6' representation of the Buddha's vast awake mind was commissioned by the Vidyadhara Chogyam Trungpa Rinpoche in 1979 and was painted in Boulder by master thangka painter Sherab Palden Beru. It was blessed by the Vidyadhara with calligraphed syllables, and by the 16th Karmapa with gold leaf handprints and his signature.</p>
+        
+        <p>Many of Trungpa Rinpoche's students found their awareness and devotion intensified in the presence of this thangka, which was the main image that inspired their extended Kagyu ngondro practices and was also included in Kagyu sadhana practices. It also served as the main shrine room's Buddha representation for about three decades of daily meditation and nyinthuns, and as the backdrop for penetrating teachings for countless hours by Trungpa Rinpoche, by many other realized Buddhist teachers of our time, and later by Sakyong Mipham Rinpoche. In 2010, following Sakyong Mipham Rinpoche's wishes, the Vajradhara thangka was removed and replaced by the new Primordial Rigden Thangka.</p>
+        
+        <p>The Vajradhara thangka was taken to Shambhala Mountain Center and installed above and inside the front door of the Great Stupa of Dharmakaya at Drala Mountain Center. It contributes to the blessings-soaked atmosphere of the room, but no longer serves as a specific focus for individuals' practice.</p>
+        
+        <p>Volunteers are willing to transport the thangka back "home" to Boulder Shambhala Center, if the move is agreed on by the sangha. To return the thangka to Boulder's main shrine room would be a potent invitation to Trungpa Rinpoche's old students and to newer students of traditional Buddhism to "come home". It could also help attract visiting Buddhist teachers to give more well-attended teachings and large abhishekas in Boulder's spacious main shrine room.</p>
+        
+        <p>The main shrine room is long and versatile. Boulder Shambhala Center's staff and volunteers believe that the Primordial Rigden thangka could be moved to the north wall of the shrine room, where the Gesar mask currently hangs, and a valence and lighting and low small offering table could be installed there. Thus, returning the Vajradhara thangka to its original location should not give anyone cause to feel left behind. The Rigden and the energy of Shambhala would not be removed, but one thangka would be moved so that the shrine room would once again include a central Buddha representation from the Kagyu vajrayana tradition. Cushions can easily be moved to face the appropriate thangka whenever there is a schedule transition between a Shambhala program, a traditional Buddhist program, or a Sadhana of Mahamudra practice.</p>
+        
+        <h3>Such a change would have many benefits:</h3>
+        <p>Revered visiting Buddhist teachers would be able to teach in an environment that is familiar to them and more aligned with the content of their teaching or abhisheka. (In recent years most of the well-attended programs at Boulder Shambhala Center have been the programs that are led by Buddhist teachers.)</p>
+        
+        <p>The great blessed Vajradhara thangka would support visualizations that are central to Boulder Shambhala Center's active Kagyu ngondro practice and that are part of many subsequent sadhana practices, in the same way that it supported Kagyu ngondro practice and other vajrayana practices for Trungpa Rinpoche's students in 1979 through 2010.</p>
+        
+        <p>Students of the Vidyadhara who have not been practicing at the Boulder Shambhala Center in the last 15 years might return for more practices and teachings (in addition to the numerous funeral services that they attend there). If Boulder Shambhala Center can help heal old family wounds and welcome the aging students in this current sangha transition, there will be great karmic benefits, and the fragile base of financial support for preserving the fortress of the Mukpo lineage might be extended.</p>
+    `
+},
+shakyamuni: {
+    title: "Shakyamuni Buddha Thangka (particular image yet to be identified)",
+    content: `
+        <p>The image of Shakyamuni Buddha symbolizes the Buddha as an ordinary human, his attainment of Buddhahood and his teachings on the path to liberation. Gautama Buddha, the historical Buddha, is a universal symbol of the embodiment of spiritual wisdom, compassion, and enlightenment. In contemporary culture, the Buddha's image is often a secular symbol and seen in peoples' gardens, porches and homes as a representation of peace, equanimity and universal compassion.</p>
+        
+        <p>New students walking into the Boulder Shambhala Center main shrine room might find an image of Gautama Buddha familiar and less esoteric, or less alien, than the blue Vajradhara Buddha or the Primordial Rigden. They might feel it less arcane, not so much a representation of a specific sect or even a mysterious sect. A commissioned Sakyamuni Buddha thangka could possibly include smaller images of Vajradhara, Samatabhadra, a Rigden, and Prajnaparamita above the main image of the Buddha. Or, smaller statues of any of these could be placed on the shrine along with the crystal ball.</p>
+        
+        <p>While ethnic Tibetan Buddhists may feel connected to the Vajradhara thangka, a Shakyamuni thangka would be welcoming to all Buddhists: Thai, Japanese, Vietnamese, German, Chinese, Indian, Australian, Cambodian, and on and on. Any of these groups might wish to visit and offer devotion to this large image/shrine of Buddha here on the Front Range, especially if a prominent photo of it were included in the Boulder Shambhala Center website. Upon entering the building, they could see the other riches that Boulder Shambhala Center has to offer.</p>
+    `
+}
+        };
+        
+        // Modal functions
+        function openModal(thangkaType) {
+            const modal = document.getElementById('thangkaModal');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalBody = document.getElementById('modalBody');
+            
+            const details = thangkaDetails[thangkaType];
+            if (details) {
+                modalTitle.textContent = details.title;
+                modalBody.innerHTML = details.content;
+                modal.classList.add('show');
+                document.body.style.overflow = 'hidden'; // Prevent background scrolling
+            }
+        }
+        
+        function closeModal() {
+            const modal = document.getElementById('thangkaModal');
+            modal.classList.remove('show');
+            document.body.style.overflow = ''; // Restore background scrolling
+        }
+        
+        // Close modal when clicking outside of it
+        window.addEventListener('click', function(event) {
+            const modal = document.getElementById('thangkaModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        });
+        
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeModal();
+            }
+        });
         
         // Generate unique submission ID
         function generateSubmissionID() {
