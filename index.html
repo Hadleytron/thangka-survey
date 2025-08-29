@@ -376,6 +376,42 @@
             display: none !important;
         }
         
+        .instructions-box {
+            background: linear-gradient(135deg, #e3f2fd 0%, #f3e5f5 100%);
+            border: 2px solid #2196f3;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 30px 0;
+            box-shadow: 0 4px 12px rgba(33, 150, 243, 0.15);
+        }
+        
+        .instructions-box h2 {
+            color: #1976d2;
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .instructions-box ol {
+            color: #333;
+            font-size: 16px;
+            line-height: 1.6;
+            margin: 0;
+            padding-left: 20px;
+        }
+        
+        .instructions-box li {
+            margin-bottom: 12px;
+            font-weight: 500;
+        }
+        
+        .instructions-box li:last-child {
+            margin-bottom: 0;
+        }
+        
         .comparison-chart {
             background: white;
             padding: 30px;
@@ -475,18 +511,20 @@
         <p class="survey-description">Please rate each of the three thangkas below on a scale from 0 (Neutral) to 5 (Most Preferable)</p>
         <div class="progress-bar">
             <div class="progress-fill" id="progressFill"></div>
-        <div class="instructions-box">
-  <h2>How to Complete This Survey</h2>
-  <ol>
-    <li>Review the comparison chart below to understand each thangka option</li>
-    <li>Scroll down to see each thangka image with rating buttons</li>
-    <li>For each thangka, click a number from 0-5 to rate your preference</li>
-    <li>Add optional comments in the text box</li>
-    <li>Click the green "Submit" button for each thangka</li>
-    <li>Complete the final submission when all three are rated</li>
-  </ol>
-</div>
-        <p id="progressText">Please scroll </p>
+        </div>
+    </div>
+
+    <!-- Instructions Section -->
+    <div class="instructions-box">
+        <h2>How to Complete This Survey</h2>
+        <ol>
+            <li>Review the comparison chart below to understand each thangka option</li>
+            <li>Scroll down to see each thangka image with rating buttons</li>
+            <li>For each thangka, click a number from 0-5 to rate your preference</li>
+            <li>Add optional comments in the text box</li>
+            <li>Click the green "Submit" button for each thangka</li>
+            <li>Complete the final submission when all three are rated</li>
+        </ol>
     </div>
 
     <!-- Comparison Chart -->
@@ -740,7 +778,7 @@
 
     <!-- Thank You Page -->
     <div class="thank-you-page" id="thankYouPage">
-        <h1 class="thank-you-title">✨ Thank You! ✨</h1>
+        <h1 class="thank-you-title">Thank You!</h1>
         <p class="thank-you-subtitle">Your feedback has been successfully submitted</p>
         
         <div class="submission-id" id="submissionIdDisplay" style="display: none;">
@@ -888,11 +926,9 @@
 
         function updateProgress() {
             const progressFill = document.getElementById('progressFill');
-            const progressText = document.getElementById('progressText');
             const percentage = (completedForms / totalForms) * 100;
             
             progressFill.style.width = percentage + '%';
-            progressText.textContent = `Progress: ${completedForms} of ${totalForms} completed`;
             
             if (completedForms === totalForms) {
                 document.getElementById('finalSubmitSection').classList.add('show');
@@ -926,6 +962,7 @@
             // Hide all survey content
             document.getElementById('surveyHeader').classList.add('hidden');
             document.querySelector('.comparison-chart').classList.add('hidden');
+            document.querySelector('.instructions-box').classList.add('hidden');
             document.getElementById('vajradharaContainer').classList.add('hidden');
             document.getElementById('rigdenContainer').classList.add('hidden');
             document.getElementById('shakyamuniContainer').classList.add('hidden');
