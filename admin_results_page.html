@@ -75,6 +75,21 @@
             border-radius: 8px;
         }
         
+        .rating-distribution {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .rating-bar {
+            text-align: center;
+            background: #e9ecef;
+            padding: 5px;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+        
         .submission {
             border: 1px solid #ddd;
             margin-bottom: 15px;
@@ -87,6 +102,14 @@
             font-weight: bold;
             margin-bottom: 10px;
             color: #333;
+        }
+        
+        .contact-info {
+            background: #e8f4fd;
+            padding: 10px;
+            border-left: 3px solid #007bff;
+            margin-bottom: 10px;
+            border-radius: 4px;
         }
         
         .response {
@@ -108,6 +131,25 @@
             font-weight: bold;
             margin-left: 10px;
         }
+        
+        .contact-section {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .contact-entry {
+            background: #f8f9fa;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            border-left: 4px solid #28a745;
+        }
+        
+        .contact-entry strong {
+            color: #333;
+        }
     </style>
 </head>
 <body>
@@ -125,6 +167,10 @@
             <div class="stat-number" id="feedbackCount">0</div>
             <div>Feedback Comments</div>
         </div>
+        <div class="stat-box">
+            <div class="stat-number" id="contactCount">0</div>
+            <div>Contact Info Provided</div>
+        </div>
     </div>
 
     <div class="controls">
@@ -137,6 +183,13 @@
     <div class="results">
         <h2>Summary by Thangka</h2>
         <div id="summaryResults"></div>
+    </div>
+
+    <div class="contact-section">
+        <h2>Contact Information</h2>
+        <div id="contactInfo">
+            <div class="no-data">No contact information provided yet.</div>
+        </div>
     </div>
 
     <div class="results">
@@ -167,6 +220,7 @@
             
             updateStats();
             updateSummary();
+            updateContactInfo();
             updateSubmissionsList();
             
             // Show update time
@@ -180,20 +234,31 @@
 
             if (total === 0) {
                 document.getElementById('feedbackCount').textContent = '0';
+                document.getElementById('contactCount').textContent = '0';
                 return;
             }
 
             let feedbackCount = 0;
+            let contactCount = 0;
 
             submissions.forEach(sub => {
+                // Count feedback
                 Object.values(sub.responses).forEach(resp => {
                     if (resp.feedback && resp.feedback !== 'No feedback provided') {
                         feedbackCount++;
                     }
                 });
+                
+                // Count contact info
+                if (sub.responses.contact && 
+                    (sub.responses.contact.name !== 'Not provided' || 
+                     sub.responses.contact.email !== 'Not provided')) {
+                    contactCount++;
+                }
             });
 
             document.getElementById('feedbackCount').textContent = feedbackCount;
+            document.getElementById('contactCount').textContent = contactCount;
         }
 
         function updateSummary() {
@@ -222,14 +287,58 @@
             // Generate summary HTML
             let html = '';
             Object.entries(thangkas).forEach(([name, ratings]) => {
-                const avg = ratings.length > 0 ? 
-                    (ratings.reduce((a, b) => a + b, 0) / ratings.length).toFixed(1) : '0.0';
+                if (ratings.length === 0) return;
+                
+                // Count ratings distribution
+                const distribution = [0,1,2,3,4,5].map(score => 
+                    ratings.filter(r => r === score).length
+                );
                 
                 html += `
                     <div class="thangka-result">
                         <h3>${name}</h3>
-                        <p><strong>Average:</strong> ${avg}/5 (${ratings.length} responses)</p>
+                        <p><strong>Total Responses:</strong> ${ratings.length}</p>
                         <p><strong>Ratings:</strong> ${ratings.join(', ')}</p>
+                        <div class="rating-distribution">
+                            ${distribution.map((count, score) => 
+                                `<div class="rating-bar">
+                                    <strong>${score}</strong><br>
+                                    ${count} votes
+                                </div>`
+                            ).join('')}
+                        </div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+        }
+
+        function updateContactInfo() {
+            const container = document.getElementById('contactInfo');
+            
+            const contactSubmissions = submissions.filter(sub => 
+                sub.responses.contact && 
+                (sub.responses.contact.name !== 'Not provided' || 
+                 sub.responses.contact.email !== 'Not provided')
+            );
+            
+            if (contactSubmissions.length === 0) {
+                container.innerHTML = '<div class="no-data">No contact information provided yet.</div>';
+                return;
+            }
+
+            let html = '';
+            contactSubmissions.forEach(sub => {
+                const contact = sub.responses.contact;
+                const time = new Date(sub.timestamp).toLocaleString();
+                
+                html += `
+                    <div class="contact-entry">
+                        <strong>Submission ID:</strong> ${sub.id}<br>
+                        <strong>Name:</strong> ${contact.name}<br>
+                        <strong>Email:</strong> ${contact.email}<br>
+                        <strong>Submitted:</strong> ${time}
                     </div>
                 `;
             });
@@ -258,13 +367,28 @@
                         </div>
                 `;
                 
-                Object.values(sub.responses).forEach(resp => {
+                // Show contact info if provided
+                if (sub.responses.contact && 
+                    (sub.responses.contact.name !== 'Not provided' || 
+                     sub.responses.contact.email !== 'Not provided')) {
                     html += `
-                        <div class="response">
-                            <strong>${resp.name}:</strong> ${resp.rating}/5<br>
-                            <em>${resp.feedback}</em>
+                        <div class="contact-info">
+                            <strong>Contact:</strong> ${sub.responses.contact.name} 
+                            (${sub.responses.contact.email})
                         </div>
                     `;
+                }
+                
+                // Show thangka responses
+                Object.values(sub.responses).forEach(resp => {
+                    if (resp.name) { // Only show thangka responses, not contact info
+                        html += `
+                            <div class="response">
+                                <strong>${resp.name}:</strong> ${resp.rating}/5<br>
+                                <em>${resp.feedback}</em>
+                            </div>
+                        `;
+                    }
                 });
                 
                 html += '</div>';
@@ -279,12 +403,18 @@
                 return;
             }
 
-            let csv = 'ID,Timestamp,Thangka,Rating,Feedback\n';
+            let csv = 'ID,Timestamp,Name,Email,Thangka,Rating,Feedback\n';
             
             submissions.forEach(sub => {
+                const contact = sub.responses.contact || {};
+                const name = contact.name || 'Not provided';
+                const email = contact.email || 'Not provided';
+                
                 Object.values(sub.responses).forEach(resp => {
-                    const feedback = (resp.feedback || '').replace(/"/g, '""');
-                    csv += `"${sub.id}","${sub.timestamp}","${resp.name}","${resp.rating}","${feedback}"\n`;
+                    if (resp.name) { // Only export thangka responses
+                        const feedback = (resp.feedback || '').replace(/"/g, '""');
+                        csv += `"${sub.id}","${sub.timestamp}","${name}","${email}","${resp.name}","${resp.rating}","${feedback}"\n`;
+                    }
                 });
             });
 
