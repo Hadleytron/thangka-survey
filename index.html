@@ -211,6 +211,63 @@
             cursor: not-allowed;
         }
         
+        .contact-info-section {
+            background: linear-gradient(135deg, #e8f5e8 0%, #f0f8f0 100%);
+            border: 2px solid #28a745;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 30px 0;
+            box-shadow: 0 4px 12px rgba(40, 167, 69, 0.15);
+        }
+        
+        .contact-info-section h2 {
+            color: #1e7e34;
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .contact-info-section p {
+            text-align: center;
+            color: #495057;
+            margin-bottom: 25px;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+        
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .contact-field label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            color: #333;
+        }
+        
+        .contact-field input {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #28a745;
+            border-radius: 8px;
+            font-size: 16px;
+            box-sizing: border-box;
+            transition: border-color 0.3s;
+        }
+        
+        .contact-field input:focus {
+            outline: none;
+            border-color: #1e7e34;
+            box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.1);
+        }
+        
         .final-submit {
             background: white;
             padding: 30px;
@@ -618,6 +675,10 @@
             .comparison-table td {
                 padding: 8px 6px;
             }
+            
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
@@ -633,11 +694,11 @@
     <div class="instructions-box">
         <h2>How to Complete This Survey</h2>
         <ol>
-            <li>Review the comparison chart below to understand each thangka option</li>
-            <li>Scroll down (to the end) to see each thangka image with rating buttons</li>
+            <li>Make sure to scroll down to the end to see each thangka image with rating options</li>
             <li>For each thangka, click a number from 0-5 to rate your preference</li>
             <li>Add optional comments in the text box</li>
             <li>Click the green "Submit" button for each thangka</li>
+            <li>Provide your contact information at the bottom (optional!)</li>
             <li>Complete the final submission when all three are rated</li>
         </ol>
         <div style="text-align: center; margin-top: 20px;">
@@ -896,26 +957,19 @@
         </form>
     </div>
 
-    <!-- Contact Information Section (Optional) -->
-    <div class="contact-section" id="contactSection" style="display: none;">
-        <div class="form-container">
-            <h2 style="text-align: center; color: #333; margin-bottom: 20px;">Contact Information (Optional)</h2>
-            <p style="text-align: center; color: #666; margin-bottom: 25px;">
-                If you'd like share your name and contact information, please share your details below.
-            </p>
-            
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
-                <div>
-                    <label for="contactName" style="display: block; margin-bottom: 5px; font-weight: 500;">Name:</label>
-                    <input type="text" id="contactName" placeholder="Your name" style="width: 100%; padding: 10px; border: 2px solid #ddd; border-radius: 8px; font-size: 16px; box-sizing: border-box;">
-                </div>
-                <div>
-                    <label for="contactEmail" style="display: block; margin-bottom: 5px; font-weight: 500;">Email:</label>
-                    <input type="email" id="contactEmail" placeholder="your.email@example.com" style="width: 100%; padding: 10px; border: 2px solid #ddd; border-radius: 8px; font-size: 16px; box-sizing: border-box;">
-                </div>
+    <!-- Contact Information Section (Always Visible) -->
+    <div class="contact-info-section">
+        <h2>Contact Information (Optional)</h2>
+        <p>If you'd like to share your name and contact information with your responses, please enter your details below. This information will be included with your survey submission.</p>
+        
+        <div class="contact-grid">
+            <div class="contact-field">
+                <label for="contactName">Name:</label>
+                <input type="text" id="contactName" placeholder="Your name">
             </div>
-            <div style="text-align: center;">
-                <button type="button" class="final-submit-btn" onclick="submitWithContact()">Submit Survey</button>
+            <div class="contact-field">
+                <label for="contactEmail">Email:</label>
+                <input type="email" id="contactEmail" placeholder="your.email@example.com">
             </div>
         </div>
     </div>
@@ -923,7 +977,7 @@
     <!-- Final Submit Section -->
     <div class="final-submit" id="finalSubmitSection">
         <h2>Complete Your Survey</h2>
-        <p>You have completed all three ratings. Click below to submit your complete survey.</p>
+        <p>You have completed all three ratings. Your contact information (if provided above) will be included with your submission.</p>
         <button type="button" class="final-submit-btn" id="finalSubmitBtn">Submit Complete Survey</button>
     </div>
 
@@ -931,11 +985,6 @@
     <div class="thank-you-page" id="thankYouPage">
         <h1 class="thank-you-title">Thank You!</h1>
         <p class="thank-you-subtitle">Your feedback has been successfully submitted</p>
-        
-        <div class="submission-id" id="submissionIdDisplay" style="display: none;">
-            <h3>Submission ID</h3>
-            <div class="submission-code" id="submissionCode"></div>
-        </div>
         
         <div class="thank-you-message">
             <p>Your responses to the Boulder Shambhala Center MSR Thangka Survey have been recorded. Your feedback is valuable and will help inform important decisions about our meditation space.</p>
@@ -1187,7 +1236,7 @@
             if (completedForms === totalForms) {
                 document.getElementById('finalSubmitSection').classList.add('show');
                 setTimeout(() => {
-                    showToast('All ratings complete! Ready for final submission.', 'celebration');
+                    showToast('All ratings complete! Review your contact info and submit when ready.', 'celebration');
                 }, 500);
             }
         }
@@ -1198,12 +1247,6 @@
                 return;
             }
             
-            // Show contact form
-            document.getElementById('finalSubmitSection').style.display = 'none';
-            document.getElementById('contactSection').style.display = 'block';
-        }
-
-        function submitWithContact() {
             // Collect contact info
             const contactData = {
                 name: document.getElementById('contactName').value.trim() || 'Not provided',
@@ -1213,15 +1256,11 @@
             // Add contact info to survey data
             surveyData.contact = contactData;
             
-            // Generate submission ID
+            // Generate submission ID (for admin tracking only)
             const submissionId = generateSubmissionID();
             
             // Store the complete submission
             storeSubmissionData(submissionId, surveyData);
-            
-            // Show submission ID
-            document.getElementById('submissionCode').textContent = submissionId;
-            document.getElementById('submissionIdDisplay').style.display = 'block';
             
             // Hide all survey content
             document.getElementById('surveyHeader').classList.add('hidden');
@@ -1230,7 +1269,8 @@
             document.getElementById('vajradharaContainer').classList.add('hidden');
             document.getElementById('rigdenContainer').classList.add('hidden');
             document.getElementById('shakyamuniContainer').classList.add('hidden');
-            document.getElementById('contactSection').classList.add('hidden');
+            document.querySelector('.contact-info-section').classList.add('hidden');
+            document.getElementById('finalSubmitSection').classList.add('hidden');
             
             // Show thank you page
             document.getElementById('thankYouPage').classList.add('show');
@@ -1239,10 +1279,10 @@
             window.scrollTo(0, 0);
             
             // Show success toast
-            showToast('Survey submitted successfully! Data saved for admin review.', 'celebration');
+            showToast('Survey submitted successfully! Thank you for your participation.', 'celebration');
             
             console.log('Survey completed! Data:', surveyData);
-            console.log('Submission ID:', submissionId);
+            console.log('Submission ID (admin only):', submissionId);
         }
     </script>
 </body>
