@@ -768,69 +768,6 @@
         </table>
     </div>
 
-    <!-- VAJRADHARA Form -->
-    <div class="form-container vajradhara" id="vajradharaContainer">
-        <h1>V A J R A D H A R A <span class="completion-status status-completed hidden" id="vajradharaStatus">Completed</span></h1>
-        
-        <form id="vajradharaForm">
-            <div class="image-section">
-                <div class="image-container">
-                    <img src="vajradhara.png" alt="VAJRADHARA thangka" style="max-width: 100%; height: auto;">
-                </div>
-            </div>
-            
-            <div class="rating-section">
-                <div class="read-more-link">
-                    <a onclick="openModal('vajradhara')">Read more about this thangka's history and significance</a>
-                </div>
-                <h2>Rate VAJRADHARA</h2>
-                <div class="rating-grid">
-                    <div class="rating-option">
-                        <input type="radio" id="vajradhara-rating-0" name="vajradhara-rating" value="0">
-                        <label for="vajradhara-rating-0">0</label>
-                    </div>
-                    <div class="rating-option">
-                        <input type="radio" id="vajradhara-rating-1" name="vajradhara-rating" value="1">
-                        <label for="vajradhara-rating-1">1</label>
-                    </div>
-                    <div class="rating-option">
-                        <input type="radio" id="vajradhara-rating-2" name="vajradhara-rating" value="2">
-                        <label for="vajradhara-rating-2">2</label>
-                    </div>
-                    <div class="rating-option">
-                        <input type="radio" id="vajradhara-rating-3" name="vajradhara-rating" value="3">
-                        <label for="vajradhara-rating-3">3</label>
-                    </div>
-                    <div class="rating-option">
-                        <input type="radio" id="vajradhara-rating-4" name="vajradhara-rating" value="4">
-                        <label for="vajradhara-rating-4">4</label>
-                    </div>
-                    <div class="rating-option">
-                        <input type="radio" id="vajradhara-rating-5" name="vajradhara-rating" value="5">
-                        <label for="vajradhara-rating-5">5</label>
-                    </div>
-                </div>
-                <div class="rating-description">
-                    0 (Neutral) to 5 (Most Preferable)
-                </div>
-            </div>
-            
-            <div class="feedback-section">
-                <h2>Feedback</h2>
-                <textarea 
-                    class="feedback-textarea" 
-                    name="vajradhara-feedback"
-                    placeholder="Optional: Share your thoughts about this thangka..."
-                    rows="5"
-                ></textarea>
-            </div>
-            
-            <div class="submit-section">
-                <button type="submit" class="submit-btn">Submit VAJRADHARA Rating</button>
-            </div>
-        </form>
-    </div>
-
     <!-- PRIMORDIAL RIGDEN Form -->
     <div class="form-container rigden" id="rigdenContainer">
         <h1>P R I M O R D I A L &nbsp; R I G D E N <span class="completion-status status-completed hidden" id="rigdenStatus">Completed</span></h1>
@@ -890,6 +827,69 @@
             
             <div class="submit-section">
                 <button type="submit" class="submit-btn">Submit PRIMORDIAL RIGDEN Rating</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- VAJRADHARA Form -->
+    <div class="form-container vajradhara" id="vajradharaContainer">
+        <h1>V A J R A D H A R A <span class="completion-status status-completed hidden" id="vajradharaStatus">Completed</span></h1>
+        
+        <form id="vajradharaForm">
+            <div class="image-section">
+                <div class="image-container">
+                    <img src="vajradhara.png" alt="VAJRADHARA thangka" style="max-width: 100%; height: auto;">
+                </div>
+            </div>
+            
+            <div class="rating-section">
+                <div class="read-more-link">
+                    <a onclick="openModal('vajradhara')">Read more about this thangka's history and significance</a>
+                </div>
+                <h2>Rate VAJRADHARA</h2>
+                <div class="rating-grid">
+                    <div class="rating-option">
+                        <input type="radio" id="vajradhara-rating-0" name="vajradhara-rating" value="0">
+                        <label for="vajradhara-rating-0">0</label>
+                    </div>
+                    <div class="rating-option">
+                        <input type="radio" id="vajradhara-rating-1" name="vajradhara-rating" value="1">
+                        <label for="vajradhara-rating-1">1</label>
+                    </div>
+                    <div class="rating-option">
+                        <input type="radio" id="vajradhara-rating-2" name="vajradhara-rating" value="2">
+                        <label for="vajradhara-rating-2">2</label>
+                    </div>
+                    <div class="rating-option">
+                        <input type="radio" id="vajradhara-rating-3" name="vajradhara-rating" value="3">
+                        <label for="vajradhara-rating-3">3</label>
+                    </div>
+                    <div class="rating-option">
+                        <input type="radio" id="vajradhara-rating-4" name="vajradhara-rating" value="4">
+                        <label for="vajradhara-rating-4">4</label>
+                    </div>
+                    <div class="rating-option">
+                        <input type="radio" id="vajradhara-rating-5" name="vajradhara-rating" value="5">
+                        <label for="vajradhara-rating-5">5</label>
+                    </div>
+                </div>
+                <div class="rating-description">
+                    0 (Neutral) to 5 (Most Preferable)
+                </div>
+            </div>
+            
+            <div class="feedback-section">
+                <h2>Feedback</h2>
+                <textarea 
+                    class="feedback-textarea" 
+                    name="vajradhara-feedback"
+                    placeholder="Optional: Share your thoughts about this thangka..."
+                    rows="5"
+                ></textarea>
+            </div>
+            
+            <div class="submit-section">
+                <button type="submit" class="submit-btn">Submit VAJRADHARA Rating</button>
             </div>
         </form>
     </div>
@@ -1158,12 +1158,12 @@
 
         function setupEventListeners() {
             // Individual form submissions
-            document.getElementById('vajradharaForm').addEventListener('submit', function(e) {
-                handleFormSubmit(e, 'VAJRADHARA', 'vajradhara');
-            });
-            
             document.getElementById('primordialRigdenForm').addEventListener('submit', function(e) {
                 handleFormSubmit(e, 'PRIMORDIAL RIGDEN', 'rigden');
+            });
+            
+            document.getElementById('vajradharaForm').addEventListener('submit', function(e) {
+                handleFormSubmit(e, 'VAJRADHARA', 'vajradhara');
             });
 
             document.getElementById('shakyamuniForm').addEventListener('submit', function(e) {
@@ -1266,8 +1266,8 @@
             document.getElementById('surveyHeader').classList.add('hidden');
             document.querySelector('.comparison-chart').classList.add('hidden');
             document.querySelector('.instructions-box').classList.add('hidden');
-            document.getElementById('vajradharaContainer').classList.add('hidden');
             document.getElementById('rigdenContainer').classList.add('hidden');
+            document.getElementById('vajradharaContainer').classList.add('hidden');
             document.getElementById('shakyamuniContainer').classList.add('hidden');
             document.querySelector('.contact-info-section').classList.add('hidden');
             document.getElementById('finalSubmitSection').classList.add('hidden');
