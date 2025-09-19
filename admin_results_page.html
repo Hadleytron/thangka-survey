@@ -184,12 +184,41 @@
             color: #666;
             font-size: 14px;
         }
+
+        .debug-section {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+        }
+
+        .debug-section h3 {
+            margin-top: 0;
+            color: #856404;
+        }
+
+        .debug-info {
+            font-family: monospace;
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 4px;
+            margin: 10px 0;
+            word-break: break-all;
+        }
     </style>
 </head>
 <body>
     <div class="header">
         <h1>🔐 Thangka Survey Results</h1>
         <p>Boulder Shambhala Center MSR Admin Dashboard</p>
+    </div>
+
+    <div class="debug-section">
+        <h3>Debug Information</h3>
+        <div id="debugInfo">
+            <div class="debug-info">Checking localStorage...</div>
+        </div>
     </div>
 
     <div class="stats">
@@ -247,11 +276,21 @@
         function loadData() {
             console.log('Loading data...');
             
+            // Debug: Check all localStorage keys
+            const allKeys = Object.keys(localStorage);
+            console.log('All localStorage keys:', allKeys);
+            
             // Get data from localStorage
             const data = localStorage.getItem('all_thangka_submissions');
+            console.log('Raw data from localStorage:', data);
+            
             submissions = data ? JSON.parse(data) : [];
             
             console.log('Found submissions:', submissions.length);
+            console.log('Submissions data:', submissions);
+            
+            // Update debug display
+            updateDebugInfo(allKeys, data, submissions);
             
             updateStats();
             updateSummary();
@@ -261,6 +300,27 @@
             // Show update time
             document.getElementById('updateTime').textContent = 
                 `Updated: ${new Date().toLocaleTimeString()}`;
+        }
+
+        function updateDebugInfo(allKeys, rawData, parsedSubmissions) {
+            const debugContainer = document.getElementById('debugInfo');
+            
+            let debugHtml = `
+                <div class="debug-info">
+                    <strong>All localStorage keys:</strong><br>
+                    ${allKeys.length > 0 ? allKeys.join(', ') : 'No keys found'}
+                </div>
+                <div class="debug-info">
+                    <strong>Raw survey data:</strong><br>
+                    ${rawData ? rawData.substring(0, 200) + (rawData.length > 200 ? '...' : '') : 'No data found'}
+                </div>
+                <div class="debug-info">
+                    <strong>Parsed submissions:</strong> ${parsedSubmissions.length}<br>
+                    ${parsedSubmissions.length > 0 ? 'First submission ID: ' + parsedSubmissions[0].id : 'No submissions'}
+                </div>
+            `;
+            
+            debugContainer.innerHTML = debugHtml;
         }
 
         function updateStats() {
