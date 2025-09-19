@@ -7,4 +7,4 @@ SURVEY
 https://tinyurl.com/BoulderMSRSurvey
 
 RESULTS
-https://hadleytron.github.io/thangka-survey/admin_results_page.html
+https://formspree.io/f/xovngjrj
