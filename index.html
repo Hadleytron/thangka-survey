@@ -274,13 +274,8 @@
             border-radius: 12px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             text-align: center;
-            display: none;
             border: 3px solid #dc3545;
             animation: fadeInPulse 1s ease-in-out;
-        }
-        
-        .final-submit.show {
-            display: block;
         }
         
         @keyframes fadeInPulse {
@@ -671,6 +666,14 @@
             text-align: left !important;
         }
         
+        .validation-message {
+            color: #dc3545;
+            font-size: 14px;
+            margin-top: 10px;
+            text-align: center;
+            display: none;
+        }
+        
         @media (max-width: 768px) {
             .comparison-chart {
                 padding: 15px;
@@ -704,12 +707,11 @@
     <div class="instructions-box">
         <h2>How to Complete This Survey</h2>
         <ol>
-            <li>Make sure to scroll down to the end to see each thangka image with rating options</li>
-            <li>For each thangka, click a number from 0-5 to rate your preference</li>
-            <li>Add optional comments in the text box</li>
-            <li>Click the green "Submit" button for each thangka</li>
-            <li>Provide your contact information at the bottom</li>
-            <li>Complete the final submission when all three are rated</li>
+            <li>Review each thangka image and information below</li>
+            <li>Rate each thangka from 0-5 based on your preference</li>
+            <li>Add optional comments in the feedback boxes</li>
+            <li>Provide your contact information if you wish</li>
+            <li>Submit your complete survey at the bottom</li>
             <li>Feel free to share the link with friends who may not be members, but also use the shrine room</li>
         </ol>
         <div style="text-align: center; margin-top: 20px;">
@@ -779,11 +781,16 @@
         </table>
     </div>
 
-    <!-- PRIMORDIAL RIGDEN Form -->
-    <div class="form-container rigden" id="rigdenContainer">
-        <h1>P R I M O R D I A L &nbsp; R I G D E N <span class="completion-status status-completed hidden" id="rigdenStatus">Completed</span></h1>
+    <!-- Single Form for All Thangkas -->
+    <form id="thangkaSurvey" action="https://formspree.io/f/xovngjrj" method="POST">
+        <!-- Hidden fields for Formspree -->
+        <input type="hidden" name="_subject" value="New Thangka Survey Response">
+        <input type="hidden" name="submission_time" id="submissionTime">
         
-        <form id="primordialRigdenForm">
+        <!-- PRIMORDIAL RIGDEN Section -->
+        <div class="form-container rigden" id="rigdenContainer">
+            <h1>P R I M O R D I A L &nbsp; R I G D E N <span class="completion-status status-completed hidden" id="rigdenStatus">Completed</span></h1>
+            
             <div class="image-section">
                 <div class="image-container">
                     <img src="primordialRigden.png" alt="PRIMORDIAL RIGDEN thangka" style="max-width: 100%; height: auto;">
@@ -797,56 +804,51 @@
                 <h2>Rate PRIMORDIAL RIGDEN</h2>
                 <div class="rating-grid">
                     <div class="rating-option">
-                        <input type="radio" id="primordialRigden-rating-0" name="rigden-rating" value="0">
+                        <input type="radio" id="primordialRigden-rating-0" name="rigden_rating" value="0">
                         <label for="primordialRigden-rating-0">0</label>
                     </div>
                     <div class="rating-option">
-                        <input type="radio" id="primordialRigden-rating-1" name="rigden-rating" value="1">
+                        <input type="radio" id="primordialRigden-rating-1" name="rigden_rating" value="1">
                         <label for="primordialRigden-rating-1">1</label>
                     </div>
                     <div class="rating-option">
-                        <input type="radio" id="primordialRigden-rating-2" name="rigden-rating" value="2">
+                        <input type="radio" id="primordialRigden-rating-2" name="rigden_rating" value="2">
                         <label for="primordialRigden-rating-2">2</label>
                     </div>
                     <div class="rating-option">
-                        <input type="radio" id="primordialRigden-rating-3" name="rigden-rating" value="3">
+                        <input type="radio" id="primordialRigden-rating-3" name="rigden_rating" value="3">
                         <label for="primordialRigden-rating-3">3</label>
                     </div>
                     <div class="rating-option">
-                        <input type="radio" id="primordialRigden-rating-4" name="rigden-rating" value="4">
+                        <input type="radio" id="primordialRigden-rating-4" name="rigden_rating" value="4">
                         <label for="primordialRigden-rating-4">4</label>
                     </div>
                     <div class="rating-option">
-                        <input type="radio" id="primordialRigden-rating-5" name="rigden-rating" value="5">
+                        <input type="radio" id="primordialRigden-rating-5" name="rigden_rating" value="5">
                         <label for="primordialRigden-rating-5">5</label>
                     </div>
                 </div>
                 <div class="rating-description">
                     0 (Neutral) to 5 (Most Preferable)
                 </div>
+                <div class="validation-message" id="rigden-validation">Please select a rating for Primordial Rigden</div>
             </div>
             
             <div class="feedback-section">
                 <h2>Feedback</h2>
                 <textarea 
                     class="feedback-textarea" 
-                    name="rigden-feedback"
+                    name="rigden_feedback"
                     placeholder="Optional: Share your thoughts about this thangka..."
                     rows="5"
                 ></textarea>
             </div>
-            
-            <div class="submit-section">
-                <button type="submit" class="submit-btn">Submit PRIMORDIAL RIGDEN Rating</button>
-            </div>
-        </form>
-    </div>
+        </div>
 
-    <!-- VAJRADHARA Form -->
-    <div class="form-container vajradhara" id="vajradharaContainer">
-        <h1>V A J R A D H A R A <span class="completion-status status-completed hidden" id="vajradharaStatus">Completed</span></h1>
-        
-        <form id="vajradharaForm">
+        <!-- VAJRADHARA Section -->
+        <div class="form-container vajradhara" id="vajradharaContainer">
+            <h1>V A J R A D H A R A <span class="completion-status status-completed hidden" id="vajradharaStatus">Completed</span></h1>
+            
             <div class="image-section">
                 <div class="image-container">
                     <img src="vajradhara.png" alt="VAJRADHARA thangka" style="max-width: 100%; height: auto;">
@@ -860,56 +862,51 @@
                 <h2>Rate VAJRADHARA</h2>
                 <div class="rating-grid">
                     <div class="rating-option">
-                        <input type="radio" id="vajradhara-rating-0" name="vajradhara-rating" value="0">
+                        <input type="radio" id="vajradhara-rating-0" name="vajradhara_rating" value="0">
                         <label for="vajradhara-rating-0">0</label>
                     </div>
                     <div class="rating-option">
-                        <input type="radio" id="vajradhara-rating-1" name="vajradhara-rating" value="1">
+                        <input type="radio" id="vajradhara-rating-1" name="vajradhara_rating" value="1">
                         <label for="vajradhara-rating-1">1</label>
                     </div>
                     <div class="rating-option">
-                        <input type="radio" id="vajradhara-rating-2" name="vajradhara-rating" value="2">
+                        <input type="radio" id="vajradhara-rating-2" name="vajradhara_rating" value="2">
                         <label for="vajradhara-rating-2">2</label>
                     </div>
                     <div class="rating-option">
-                        <input type="radio" id="vajradhara-rating-3" name="vajradhara-rating" value="3">
+                        <input type="radio" id="vajradhara-rating-3" name="vajradhara_rating" value="3">
                         <label for="vajradhara-rating-3">3</label>
                     </div>
                     <div class="rating-option">
-                        <input type="radio" id="vajradhara-rating-4" name="vajradhara-rating" value="4">
+                        <input type="radio" id="vajradhara-rating-4" name="vajradhara_rating" value="4">
                         <label for="vajradhara-rating-4">4</label>
                     </div>
                     <div class="rating-option">
-                        <input type="radio" id="vajradhara-rating-5" name="vajradhara-rating" value="5">
+                        <input type="radio" id="vajradhara-rating-5" name="vajradhara_rating" value="5">
                         <label for="vajradhara-rating-5">5</label>
                     </div>
                 </div>
                 <div class="rating-description">
                     0 (Neutral) to 5 (Most Preferable)
                 </div>
+                <div class="validation-message" id="vajradhara-validation">Please select a rating for Vajradhara</div>
             </div>
             
             <div class="feedback-section">
                 <h2>Feedback</h2>
                 <textarea 
                     class="feedback-textarea" 
-                    name="vajradhara-feedback"
+                    name="vajradhara_feedback"
                     placeholder="Optional: Share your thoughts about this thangka..."
                     rows="5"
                 ></textarea>
             </div>
-            
-            <div class="submit-section">
-                <button type="submit" class="submit-btn">Submit VAJRADHARA Rating</button>
-            </div>
-        </form>
-    </div>
+        </div>
 
-    <!-- SHAKYAMUNI Form -->
-    <div class="form-container shakyamuni" id="shakyamuniContainer">
-        <h1>S H A K Y A M U N I &nbsp; B U D D H A <span class="completion-status status-completed hidden" id="shakyamuniStatus">Completed</span></h1>
-        
-        <form id="shakyamuniForm">
+        <!-- SHAKYAMUNI Section -->
+        <div class="form-container shakyamuni" id="shakyamuniContainer">
+            <h1>S H A K Y A M U N I &nbsp; B U D D H A <span class="completion-status status-completed hidden" id="shakyamuniStatus">Completed</span></h1>
+            
             <div class="image-section">
                 <div class="image-container">
                     <img src="shakyamuni-buddha.png" alt="SHAKYAMUNI BUDDHA thangka" style="max-width: 100%; height: auto;">
@@ -923,75 +920,73 @@
                 <h2>Rate SHAKYAMUNI BUDDHA</h2>
                 <div class="rating-grid">
                     <div class="rating-option">
-                        <input type="radio" id="shakyamuni-rating-0" name="shakyamuni-rating" value="0">
+                        <input type="radio" id="shakyamuni-rating-0" name="shakyamuni_rating" value="0">
                         <label for="shakyamuni-rating-0">0</label>
                     </div>
                     <div class="rating-option">
-                        <input type="radio" id="shakyamuni-rating-1" name="shakyamuni-rating" value="1">
+                        <input type="radio" id="shakyamuni-rating-1" name="shakyamuni_rating" value="1">
                         <label for="shakyamuni-rating-1">1</label>
                     </div>
                     <div class="rating-option">
-                        <input type="radio" id="shakyamuni-rating-2" name="shakyamuni-rating" value="2">
+                        <input type="radio" id="shakyamuni-rating-2" name="shakyamuni_rating" value="2">
                         <label for="shakyamuni-rating-2">2</label>
                     </div>
                     <div class="rating-option">
-                        <input type="radio" id="shakyamuni-rating-3" name="shakyamuni-rating" value="3">
+                        <input type="radio" id="shakyamuni-rating-3" name="shakyamuni_rating" value="3">
                         <label for="shakyamuni-rating-3">3</label>
                     </div>
                     <div class="rating-option">
-                        <input type="radio" id="shakyamuni-rating-4" name="shakyamuni-rating" value="4">
+                        <input type="radio" id="shakyamuni-rating-4" name="shakyamuni_rating" value="4">
                         <label for="shakyamuni-rating-4">4</label>
                     </div>
                     <div class="rating-option">
-                        <input type="radio" id="shakyamuni-rating-5" name="shakyamuni-rating" value="5">
+                        <input type="radio" id="shakyamuni-rating-5" name="shakyamuni_rating" value="5">
                         <label for="shakyamuni-rating-5">5</label>
                     </div>
                 </div>
                 <div class="rating-description">
                     0 (Neutral) to 5 (Most Preferable)
                 </div>
+                <div class="validation-message" id="shakyamuni-validation">Please select a rating for Shakyamuni Buddha</div>
             </div>
             
             <div class="feedback-section">
                 <h2>Feedback</h2>
                 <textarea 
                     class="feedback-textarea" 
-                    name="shakyamuni-feedback"
+                    name="shakyamuni_feedback"
                     placeholder="Optional: Share your thoughts about this thangka..."
                     rows="5"
                 ></textarea>
             </div>
-            
-            <div class="submit-section">
-                <button type="submit" class="submit-btn">Submit SHAKYAMUNI BUDDHA Rating</button>
-            </div>
-        </form>
-    </div>
+        </div>
 
-    <!-- Contact Information Section (Always Visible) -->
-    <div class="contact-info-section">
-        <h2>Contact Information (Optional)</h2>
-        <p>If you'd like to share your name and contact information with your responses, please enter your details below. This information will be included with your survey submission.</p>
-        <p>If you would like more information, please feel free to contact: Thangka Task Force (thangka@boulder.shambhala.org).</p>
-        
-        <div class="contact-grid">
-            <div class="contact-field">
-                <label for="contactName">Name:</label>
-                <input type="text" id="contactName" placeholder="Your name">
-            </div>
-            <div class="contact-field">
-                <label for="contactEmail">Email:</label>
-                <input type="email" id="contactEmail" placeholder="your.email@example.com">
+        <!-- Contact Information Section -->
+        <div class="contact-info-section">
+            <h2>Contact Information (Optional)</h2>
+            <p>If you'd like to share your name and contact information with your responses, please enter your details below. This information will be included with your survey submission.</p>
+            <p>If you would like more information, please feel free to contact: Thangka Task Force (thangka@boulder.shambhala.org).</p>
+            
+            <div class="contact-grid">
+                <div class="contact-field">
+                    <label for="contact_name">Name:</label>
+                    <input type="text" id="contact_name" name="contact_name" placeholder="Your name">
+                </div>
+                <div class="contact-field">
+                    <label for="contact_email">Email:</label>
+                    <input type="email" id="contact_email" name="contact_email" placeholder="your.email@example.com">
+                </div>
             </div>
         </div>
-    </div>
 
-    <!-- Final Submit Section -->
-    <div class="final-submit" id="finalSubmitSection">
-        <h2>Complete Your Survey</h2>
-        <p>You have completed all three ratings. Your contact information (if provided above) will be included with your submission.</p>
-        <button type="button" class="final-submit-btn" id="finalSubmitBtn">Submit Complete Survey</button>
-    </div>
+        <!-- Final Submit Section -->
+        <div class="final-submit" id="finalSubmitSection">
+            <h2>Complete Your Survey</h2>
+            <p>Please ensure you have rated all three thangkas before submitting.</p>
+            <div class="validation-message" id="form-validation" style="display: block;">Please rate all three thangkas before submitting</div>
+            <button type="submit" class="final-submit-btn" id="finalSubmitBtn">Submit Complete Survey</button>
+        </div>
+    </form>
 
     <!-- Thank You Page -->
     <div class="thank-you-page" id="thankYouPage">
@@ -1129,39 +1124,47 @@
                 closeModal();
             }
         });
-        
-        // Generate unique submission ID
-        function generateSubmissionID() {
-            const timestamp = Date.now().toString(36);
-            const randomStr = Math.random().toString(36).substring(2, 8);
-            return `TSR-${timestamp}-${randomStr}`.toUpperCase();
-        }
-        
-        // Store submission data to localStorage for admin page
-        function storeSubmissionData(submissionId, data) {
-            const submissionData = {
-                id: submissionId,
-                timestamp: new Date().toISOString(),
-                responses: data
-            };
+
+        // Form validation for Formspree
+        function validateForm() {
+            const rigdenRating = document.querySelector('input[name="rigden_rating"]:checked');
+            const vajradharaRating = document.querySelector('input[name="vajradhara_rating"]:checked');
+            const shakyamuniRating = document.querySelector('input[name="shakyamuni_rating"]:checked');
             
-            // Get existing submissions or initialize empty array
-            const existingSubmissions = localStorage.getItem('all_thangka_submissions');
-            let allSubmissions = existingSubmissions ? JSON.parse(existingSubmissions) : [];
+            let isValid = true;
             
-            // Add new submission
-            allSubmissions.push(submissionData);
+            // Hide all validation messages first
+            document.getElementById('rigden-validation').style.display = 'none';
+            document.getElementById('vajradhara-validation').style.display = 'none';
+            document.getElementById('shakyamuni-validation').style.display = 'none';
+            document.getElementById('form-validation').style.display = 'none';
             
-            // Save back to localStorage
-            localStorage.setItem('all_thangka_submissions', JSON.stringify(allSubmissions));
+            // Check each rating
+            if (!rigdenRating) {
+                document.getElementById('rigden-validation').style.display = 'block';
+                isValid = false;
+            }
             
-            console.log('Submission stored:', submissionData);
-            console.log('Total submissions now:', allSubmissions.length);
+            if (!vajradharaRating) {
+                document.getElementById('vajradhara-validation').style.display = 'block';
+                isValid = false;
+            }
             
-            return submissionData;
+            if (!shakyamuniRating) {
+                document.getElementById('shakyamuni-validation').style.display = 'block';
+                isValid = false;
+            }
+            
+            if (!isValid) {
+                document.getElementById('form-validation').style.display = 'block';
+                // Scroll to first error
+                document.getElementById('rigden-validation').scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+            
+            return isValid;
         }
 
-        // Toast notification
+        // Show toast notification
         function showToast(message, type = 'success') {
             const existingToast = document.querySelector('.toast');
             if (existingToast) {
@@ -1178,141 +1181,79 @@
             setTimeout(() => {
                 toast.classList.remove('show');
                 setTimeout(() => toast.remove(), 300);
-            }, 3000);
+            }, 4000);
         }
 
         // Initialize when page loads
         document.addEventListener('DOMContentLoaded', function() {
-            setupEventListeners();
-        });
-
-        function setupEventListeners() {
-            // Individual form submissions
-            document.getElementById('primordialRigdenForm').addEventListener('submit', function(e) {
-                handleFormSubmit(e, 'PRIMORDIAL RIGDEN', 'rigden');
-            });
+            // Set submission timestamp
+            document.getElementById('submissionTime').value = new Date().toISOString();
             
-            document.getElementById('vajradharaForm').addEventListener('submit', function(e) {
-                handleFormSubmit(e, 'VAJRADHARA', 'vajradhara');
-            });
-
-            document.getElementById('shakyamuniForm').addEventListener('submit', function(e) {
-                handleFormSubmit(e, 'SHAKYAMUNI BUDDHA', 'shakyamuni');
-            });
-
-            // Final submission
-            document.getElementById('finalSubmitBtn').addEventListener('click', handleFinalSubmit);
-        }
-
-        function handleFormSubmit(e, formName, formId) {
-            e.preventDefault();
-            
-            const formData = new FormData(e.target);
-            const rating = formData.get(formId + '-rating');
-            const feedback = formData.get(formId + '-feedback') || 'No feedback provided';
-            
-            if (!rating) {
-                showToast(`Please select a rating for ${formName}`, 'error');
-                return;
-            }
-            
-            // Store the data
-            surveyData[formId] = {
-                name: formName,
-                rating: rating,
-                feedback: feedback
-            };
-            
-            // Mark form as completed
-            markFormCompleted(formId);
-            
-            // Show success message
-            showToast(`${formName} rating submitted!`);
-            
-            // Update progress
+            // Progress tracking for visual feedback
             updateProgress();
-        }
-
-        function markFormCompleted(formId) {
-            const container = document.getElementById(formId + 'Container');
-            const status = document.getElementById(formId + 'Status');
             
-            if (!container || !status) {
-                console.error('Could not find elements for:', formId);
-                return;
-            }
+            // Add form submit handler
+            document.getElementById('thangkaSurvey').addEventListener('submit', function(e) {
+                if (!validateForm()) {
+                    e.preventDefault();
+                    showToast('Please complete all required ratings before submitting.', 'error');
+                    return false;
+                }
+                
+                // If validation passes, show loading message
+                showToast('Submitting your survey...', 'success');
+                
+                // Disable submit button to prevent double submission
+                const submitBtn = document.getElementById('finalSubmitBtn');
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Submitting...';
+            });
             
-            const submitBtn = container.querySelector('.submit-btn');
-            
-            if (!submitBtn) {
-                console.error('Could not find submit button for:', formId);
-                return;
-            }
-            
-            container.classList.add('completed');
-            status.classList.remove('hidden');
-            submitBtn.disabled = true;
-            submitBtn.textContent = 'Submitted ✓';
-            
-            completedForms++;
-        }
-
+            // Add real-time validation feedback
+            const allRatings = document.querySelectorAll('input[type="radio"]');
+            allRatings.forEach(radio => {
+                radio.addEventListener('change', function() {
+                    // Check if all three categories have selections
+                    const rigdenRating = document.querySelector('input[name="rigden_rating"]:checked');
+                    const vajradharaRating = document.querySelector('input[name="vajradhara_rating"]:checked');
+                    const shakyamuniRating = document.querySelector('input[name="shakyamuni_rating"]:checked');
+                    
+                    if (rigdenRating && vajradharaRating && shakyamuniRating) {
+                        document.getElementById('form-validation').style.display = 'none';
+                    }
+                    
+                    updateProgress();
+                });
+            });
+        });
+        
         function updateProgress() {
-            const progressFill = document.getElementById('progressFill');
-            const percentage = (completedForms / totalForms) * 100;
+            // Update progress bar based on completed ratings
+            const rigdenRating = document.querySelector('input[name="rigden_rating"]:checked');
+            const vajradharaRating = document.querySelector('input[name="vajradhara_rating"]:checked');
+            const shakyamuniRating = document.querySelector('input[name="shakyamuni_rating"]:checked');
             
-            progressFill.style.width = percentage + '%';
+            let completed = 0;
+            if (rigdenRating) completed++;
+            if (vajradharaRating) completed++;
+            if (shakyamuniRating) completed++;
             
-            if (completedForms === totalForms) {
-                document.getElementById('finalSubmitSection').classList.add('show');
-                setTimeout(() => {
-                    showToast('All ratings complete! Review your contact info and submit when ready.', 'celebration');
-                }, 500);
+            const percentage = (completed / 3) * 100;
+            document.getElementById('progressFill').style.width = percentage + '%';
+            
+            // Update completion status
+            if (rigdenRating) {
+                document.getElementById('rigdenContainer').classList.add('completed');
+                document.getElementById('rigdenStatus').classList.remove('hidden');
             }
-        }
-
-        function handleFinalSubmit() {
-            if (completedForms !== totalForms) {
-                showToast('Please complete all three ratings first.', 'error');
-                return;
+            if (vajradharaRating) {
+                document.getElementById('vajradharaContainer').classList.add('completed');
+                document.getElementById('vajradharaStatus').classList.remove('hidden');
             }
-            
-            // Collect contact info
-            const contactData = {
-                name: document.getElementById('contactName').value.trim() || 'Not provided',
-                email: document.getElementById('contactEmail').value.trim() || 'Not provided'
-            };
-            
-            // Add contact info to survey data
-            surveyData.contact = contactData;
-            
-            // Generate submission ID (for admin tracking only)
-            const submissionId = generateSubmissionID();
-            
-            // Store the complete submission
-            storeSubmissionData(submissionId, surveyData);
-            
-            // Hide all survey content
-            document.getElementById('surveyHeader').classList.add('hidden');
-            document.querySelector('.comparison-chart').classList.add('hidden');
-            document.querySelector('.instructions-box').classList.add('hidden');
-            document.getElementById('rigdenContainer').classList.add('hidden');
-            document.getElementById('vajradharaContainer').classList.add('hidden');
-            document.getElementById('shakyamuniContainer').classList.add('hidden');
-            document.querySelector('.contact-info-section').classList.add('hidden');
-            document.getElementById('finalSubmitSection').classList.add('hidden');
-            
-            // Show thank you page
-            document.getElementById('thankYouPage').classList.add('show');
-            
-            // Scroll to top
-            window.scrollTo(0, 0);
-            
-            // Show success toast
-            showToast('Survey submitted successfully! Thank you for your participation.', 'celebration');
-            
-            console.log('Survey completed! Data:', surveyData);
-            console.log('Submission ID (admin only):', submissionId);
+            if (shakyamuniRating) {
+                document.getElementById('shakyamuniContainer').classList.add('completed');
+                document.getElementById('shakyamuniStatus').classList.remove('hidden');
+            }
         }
     </script>
 </body>
